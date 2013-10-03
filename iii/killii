@@ -1,0 +1,7 @@
+#! /usr/bin/bash
+
+killall ii
+killall iii
+rm -r ~/irc/*
+killall tmux
+killall iiosed

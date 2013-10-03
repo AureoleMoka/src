@@ -1,0 +1,48 @@
+#! /usr/bin/bash
+SERVER=$1
+CHAN=$2
+TERM="screen-256color-bce"
+
+if [ $# -eq 2 ]
+then 
+    if [ ! -d ~/irc/$SERVER ]
+    then
+        ii -s $SERVER -n "mokkake" &> /dev/null &
+    fi
+    
+    while true
+    do
+        if [ -d ~/irc/$SERVER ]
+        then
+            cd ~/irc/$SERVER
+            echo "/j $CHAN" > in
+            break
+        fi
+    done
+    
+    while true
+    do
+        if [ -d ~/irc/$SERVER/$CHAN ]
+        then
+            cd $CHAN
+            break
+        fi
+    done
+
+else
+    cd ~/irc/$SERVER/$CHAN
+    case $3 in
+        out)
+            if [ ! -f ~/irc/$SERVER/$CHAN/out ]
+            then
+                touch ~/irc/$SERVER/$CHAN/out
+            fi
+
+            clear
+            tail -f out | iiosed
+            ;;
+        in) vim -c "imap <Return> <Esc>:w >> ./in<CR>ddi"
+    esac
+fi
+
+    
