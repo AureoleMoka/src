@@ -1,0 +1,8 @@
+mostly scripts, but also haskell software, nothing fancy.
+feel free to use. Not everything is working thought, some are just tests
+
+battery: displays stumpwm message with battery level
+iii: small ii irc client interface
+torrent: adding torrent files to btpd and remove them
+cdburn: cd burning script
+haskell: haskell tests
