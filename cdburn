@@ -1,0 +1,32 @@
+#! /usr/bin/bash
+
+case $1 in
+"--help") echo "usage: cdburn directory extension";;
+esac
+
+cd $1
+case $2 in
+"mp3")
+    for i in *.mp3
+    do
+        lame --decode "$i" "$(basename "$i" .mp3)".wav
+    done
+    ;;
+"flac")
+    for i in *.flac
+    do
+        flac -d "$i"
+    done
+    ;;
+"wav")
+    ;;
+*)
+    echo "error: unrecognized audio format"
+    ;;
+esac
+
+mkdir /tmp/cdburn
+rm -r /tmp/cdburn/*
+mv *.wav /tmp/cdburn
+
+cdrecord /tmp/cdburn/*.wav

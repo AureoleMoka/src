@@ -1,0 +1,6 @@
+#! /usr/bin/bash
+
+WIDTH=$[1600 * $1 / 100 ]
+HEIGHT=$[900 * $1 / 100 ]
+
+newXephyr runVideoFF $WIDTH $HEIGHT

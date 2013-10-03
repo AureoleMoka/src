@@ -1,0 +1,18 @@
+#! /usr/bin/bash
+
+BSTATE=$(acpi)
+
+if $(echo $BSTATE | grep -q Discharging); then
+    PERCENT=$(echo "$BSTATE" | awk '{print $4}' | cut -d '%' -f1)
+    TIME=$(echo "$BSTATE" | awk '{print $5}')
+    if [[ $PERCENT -le 50 ]]; then
+        OUTPUT="echo Battery below 50% ($PERCENT%, $TIME remaining)"
+    elif [[ $PERCENT -le "25" ]]; then
+        OUTPUT="echo omg battery is so low ($PERCENT%, $TIME remaining)"
+    elif [[ $PERCENT -le "5" ]]; then
+        OUTPUT="echo OMG OMG OMG PLUG THIS LAPTOP BEFORE $TIME)"
+    else
+        OUTPUT="echo Battery: $PERCENT%, $TIME"
+    fi
+fi
+echo "$OUTPUT" > /dev/null | stumpish

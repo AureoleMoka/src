@@ -1,0 +1,16 @@
+#! /usr/bin/bash
+
+if [ $# -eq 1 ]
+then
+    WIDTH=$(getfprop :width)
+    HEIGHT=$(getfprop :height)
+else
+    WIDTH=$2
+    HEIGHT=$3
+fi
+
+LAST_DISPLAY=$(ps aux | grep -i "xephyr -ac -reset -screen" | grep -v grep | head -n 1 | awk '{print $NF}' | cut -c2-)
+NEW_DISPLAY=$(($LAST_DISPLAY + 1))
+Xephyr -ac -reset -screen "$WIDTH"x"$HEIGHT" :$NEW_DISPLAY &
+DISPLAY=":$NEW_DISPLAY"
+exec $1

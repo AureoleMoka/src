@@ -1,0 +1,11 @@
+#! /bin/bash
+
+cd ~/dl
+torrents=$(ls | grep .torrent)
+
+echo -e "$torrents" | \
+while read i
+do
+    btcli add -d "$(echo "$i" | sed 's/.torrent//')" "$i"
+    rm "$i"
+done
